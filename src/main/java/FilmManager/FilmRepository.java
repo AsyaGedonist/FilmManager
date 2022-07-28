@@ -51,4 +51,30 @@ public class FilmRepository {
         return reversed;
     }
 
+    public FilmItem[] findById(int filmId) {
+        int resultLength = 0;
+        for (FilmItem film : films) {
+            if (film.getFilmId() == filmId) {
+                resultLength++;
+            }
+        }
+        FilmItem[] filmFound = new FilmItem[resultLength];
+        int copyToIndex = 0;
+        for (FilmItem film : films) {
+            if (film.getFilmId() == filmId) {
+                filmFound[copyToIndex] = film;
+                copyToIndex++;
+            }
+        }
+        if (resultLength == 0) {
+            return null;
+        }
+        return filmFound;
+    }
+
+    public FilmItem[] removeAll() {
+        FilmItem[] tmp = new FilmItem[0];
+        return tmp;
+    }
+
 }

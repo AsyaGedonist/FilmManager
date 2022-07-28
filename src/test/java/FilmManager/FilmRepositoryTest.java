@@ -112,7 +112,7 @@ public class FilmRepositoryTest {
     }
 
     @Test
-    public void ShouldDelAll() {
+    public void ShouldDelFilmId() {
         FilmRepository films = new FilmRepository();
 
         films.save(film1);
@@ -128,4 +128,69 @@ public class FilmRepositoryTest {
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void ShouldViewOne() {
+        FilmRepository films = new FilmRepository();
+
+        films.save(film1);
+        films.save(film2);
+        films.save(film3);
+        films.save(film4);
+
+        FilmItem[] actual = films.findById(3);
+        FilmItem[] expected = {film3};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void ShouldViewNull() {
+        FilmRepository films = new FilmRepository();
+
+        films.save(film1);
+        films.save(film2);
+        films.save(film3);
+        films.save(film4);
+
+        FilmItem[] actual = films.findById(7);
+        FilmItem[] expected = null;
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void ShouldViewFive() {
+        FilmRepository films = new FilmRepository();
+
+        films.save(film1);
+        films.save(film2);
+        films.save(film3);
+        films.save(film4);
+        films.save(film3);
+        films.save(film3);
+        films.save(film3);
+        films.save(film3);
+
+        FilmItem[] actual = films.findById(3);
+        FilmItem[] expected = {film3, film3, film3, film3, film3};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void ShouldDelAll() {
+        FilmRepository films = new FilmRepository();
+
+        films.save(film1);
+        films.save(film2);
+        films.save(film3);
+        films.save(film4);
+        films.save(film5);
+        films.save(film6);
+
+        FilmItem[] expected = new FilmItem[0];
+        FilmItem[] actual = films.removeAll();
+
+        assertArrayEquals(expected, actual);
+    }
 }
