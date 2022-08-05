@@ -8,8 +8,8 @@ import static org.mockito.Mockito.*;
 
 public class FilmManagerTest {
 
-    FilmRepository films = Mockito.mock(FilmRepository.class);
-    FilmManager manager = new FilmManager(films);
+    FilmRepository repo = Mockito.mock(FilmRepository.class);
+    FilmManager manager = new FilmManager(repo);
 
     FilmItem film1 = new FilmItem(1, "Бладшот", "боевик");
     FilmItem film2 = new FilmItem(2, "Вперёд", "мультфильм");
@@ -25,15 +25,40 @@ public class FilmManagerTest {
     FilmItem film12 = new FilmItem(12, "Всё везде и сразу", "фантастика");
 
     @Test
-    public void shouldAdd() {
-        FilmItem[] filmsRepo = { film1, film2, film3 };
-        doReturn(filmsRepo).when(films).findAll();
+    public void shouldShow() {
+        FilmItem[] films = { film1, film2, film3 };
+        doReturn(films).when(repo).getItems();
 
-        //manager.saveManager(film4);
-        FilmItem[] actual = manager.findAllManager();
+        FilmItem[] actual = { film1, film2, film3 };
+        FilmItem[] expected = manager.findAll();
 
-        FilmItem[] expected = {film3, film2, film1};
+        Assertions.assertArrayEquals(actual, expected);
 
-        Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    public void shouldAdd() {
+        FilmItem[] films = { film1, film2, film3 };
+        doReturn(films).when(repo).getItems();
+
+        FilmItem[] actual = { film1, film2, film3, film4 };
+
+        FilmRepository expected = manager.saveManager(film4);
+
+        Assertions.assertArrayEquals(actual, expected);
+
+    }
+
+    @Test
+    public void shouldDel() {
+        FilmItem[] films = { film1, film2, film3 };
+        doReturn(films).when(repo).getItems();
+
+        FilmItem[] actual = { film1, film2 };
+        FilmItem[] expected = manager.removeById(3);
+
+        Assertions.assertArrayEquals(actual, expected);
+
+    }
+
 }

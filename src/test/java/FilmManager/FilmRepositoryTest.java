@@ -36,7 +36,7 @@ public class FilmRepositoryTest {
         films.save(film11);
         films.save(film12);
 
-        FilmItem[] actual = films.findAll();
+        FilmItem[] actual = films.getItems();
         FilmItem[] expected = {film1, film2, film3, film4, film5, film6, film7, film8, film9, film10, film11, film12};
 
         assertArrayEquals(expected, actual);
@@ -122,7 +122,7 @@ public class FilmRepositoryTest {
 
         films.removeByFilmId(3);
 
-        FilmItem[] actual = films.findAll();
+        FilmItem[] actual = films.getItems();
         FilmItem[] expected = {film1, film2, film4};
 
         assertArrayEquals(expected, actual);

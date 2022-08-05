@@ -21,7 +21,7 @@ public class FilmRepository {
         films = tmp;
     }
 
-    public void removeByFilmId(int filmId) {
+    public FilmItem[] removeByFilmId(int filmId) {
         FilmItem[] tmp = new FilmItem[films.length - 1];
         int copyToIndex = 0;
         for (FilmItem film : films) {
@@ -31,9 +31,9 @@ public class FilmRepository {
             }
         }
         films = tmp;
+        return films;
     }
-
-    public FilmItem[] findAll() {
+    public FilmItem[] getItems () {
         return films;
     }
 
@@ -51,25 +51,17 @@ public class FilmRepository {
         return reversed;
     }
 
-    public FilmItem[] findById(int filmId) {
-        int resultLength = 0;
-        for (FilmItem film : films) {
-            if (film.getFilmId() == filmId) {
-                resultLength++;
-            }
-        }
-        FilmItem[] filmFound = new FilmItem[resultLength];
+    public FilmItem [] findById(int filmId) {
+        FilmItem[] tmp = new FilmItem[1];
         int copyToIndex = 0;
-        for (FilmItem film : films) {
-            if (film.getFilmId() == filmId) {
-                filmFound[copyToIndex] = film;
+        for (FilmItem  film : films) {
+            if (film.equals(filmId)) {
+                tmp[copyToIndex] = film;
                 copyToIndex++;
             }
         }
-        if (resultLength == 0) {
-            return null;
-        }
-        return filmFound;
+        films = tmp;
+        return films;
     }
 
     public FilmItem[] removeAll() {
