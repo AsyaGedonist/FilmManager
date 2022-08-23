@@ -25,17 +25,25 @@ public class FilmRepository {
         films = tmp;
     }
 
-    public FilmItem [] findById(int filmId) {
-        FilmItem[] tmp = new FilmItem[1];
+    public FilmItem[] findById(int filmId) {
+        int resultLength = 0;
+        for (FilmItem film : films) {
+            if (film.getFilmId() == filmId) {
+                resultLength++;
+            }
+        }
+        FilmItem[] filmFound = new FilmItem[resultLength];
         int copyToIndex = 0;
-        for (FilmItem  film : films) {
-            if (film.equals(filmId)) {
-                tmp[copyToIndex] = film;
+        for (FilmItem film : films) {
+            if (film.getFilmId() == filmId) {
+                filmFound[copyToIndex] = film;
                 copyToIndex++;
             }
         }
-        films = tmp;
-        return films;
+        if (resultLength == 0) {
+            return null;
+        }
+        return filmFound;
     }
 
     public FilmItem[] removeById(int filmId) {
