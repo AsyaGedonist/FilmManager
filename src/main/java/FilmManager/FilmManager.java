@@ -8,8 +8,8 @@ public class FilmManager {
         this.films = films;
     }
 
-    public FilmItem[] findAll () {
-        return films.getItems();
+    public FilmItem[] findAllManager () {
+        return films.findAll();
     }
 
     public FilmRepository saveManager (FilmItem film) {
@@ -17,16 +17,20 @@ public class FilmManager {
         return films;
     }
 
-    public FilmItem[] findById (int filmId) {
-        return films.findById(filmId);
-    }
+    public FilmItem[] findLast (int limit) {
+        int resultLength;
+        FilmItem[] all = films.findAll();
+        if (limit > all.length) {
+            resultLength = all.length;
+        } else {
+            resultLength = limit;
+        }
 
-    public FilmItem[] removeById (int filmId) {
-        return films.removeByFilmId(filmId);
-    }
-
-    public FilmItem[] removeAll () {
-        return films.removeAll();
+        FilmItem[] reversed = new FilmItem[resultLength];
+        for (int i = 0; i < reversed.length; i++) {
+            reversed[i] = all[all.length - 1 - i];
+        }
+        return reversed;
     }
 
 }

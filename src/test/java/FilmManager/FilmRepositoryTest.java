@@ -36,80 +36,12 @@ public class FilmRepositoryTest {
         films.save(film11);
         films.save(film12);
 
-        FilmItem[] actual = films.getItems();
+        FilmItem[] actual = films.findAll();
         FilmItem[] expected = {film1, film2, film3, film4, film5, film6, film7, film8, film9, film10, film11, film12};
 
         assertArrayEquals(expected, actual);
     }
 
-    @Test
-    public void ShouldAddAllBaseReverse() {
-        FilmRepository films = new FilmRepository();
-
-        films.save(film1);
-        films.save(film2);
-        films.save(film3);
-        films.save(film4);
-        films.save(film5);
-        films.save(film6);
-        films.save(film7);
-        films.save(film8);
-        films.save(film9);
-        films.save(film10);
-        films.save(film11);
-        films.save(film12);
-
-        FilmItem[] actual = films.findLastLimit();
-        FilmItem[] expected = {film12, film11, film10, film9, film8, film7, film6, film5, film4, film3};
-
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void ShouldAddAllLessLimitReverse() {
-        FilmRepository films = new FilmRepository(5);
-
-        films.save(film1);
-        films.save(film2);
-        films.save(film3);
-        films.save(film4);
-        films.save(film5);
-        films.save(film6);
-        films.save(film7);
-        films.save(film8);
-        films.save(film9);
-        films.save(film10);
-        films.save(film11);
-        films.save(film12);
-
-        FilmItem[] actual = films.findLastLimit();
-        FilmItem[] expected = {film12, film11, film10, film9, film8};
-
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void ShouldAddAllMoreLimitReverse() {
-        FilmRepository films = new FilmRepository(15);
-
-        films.save(film1);
-        films.save(film2);
-        films.save(film3);
-        films.save(film4);
-        films.save(film5);
-        films.save(film6);
-        films.save(film7);
-        films.save(film8);
-        films.save(film9);
-        films.save(film10);
-        films.save(film11);
-        films.save(film12);
-
-        FilmItem[] actual = films.findLastLimit();
-        FilmItem[] expected = {film12, film11, film10, film9, film8, film7, film6, film5, film4, film3, film2, film1};
-
-        assertArrayEquals(expected, actual);
-    }
 
     @Test
     public void ShouldDelFilmId() {
@@ -120,9 +52,9 @@ public class FilmRepositoryTest {
         films.save(film3);
         films.save(film4);
 
-        films.removeByFilmId(3);
+        films.removeById(3);
 
-        FilmItem[] actual = films.getItems();
+        FilmItem[] actual = films.findAll();
         FilmItem[] expected = {film1, film2, film4};
 
         assertArrayEquals(expected, actual);

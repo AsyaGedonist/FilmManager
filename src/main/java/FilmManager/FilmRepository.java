@@ -12,6 +12,10 @@ public class FilmRepository {
         this.limit = limit;
     }
 
+    public FilmItem[] findAll () {
+        return films;
+    }
+
     public void save(FilmItem film) {
         FilmItem[] tmp = new FilmItem[films.length + 1];
         for (int i = 0; i < films.length; i++) {
@@ -21,11 +25,11 @@ public class FilmRepository {
         films = tmp;
     }
 
-    public FilmItem[] removeByFilmId(int filmId) {
-        FilmItem[] tmp = new FilmItem[films.length - 1];
+    public FilmItem [] findById(int filmId) {
+        FilmItem[] tmp = new FilmItem[1];
         int copyToIndex = 0;
-        for (FilmItem film : films) {
-            if (film.getFilmId() != filmId) {
+        for (FilmItem  film : films) {
+            if (film.equals(filmId)) {
                 tmp[copyToIndex] = film;
                 copyToIndex++;
             }
@@ -33,29 +37,12 @@ public class FilmRepository {
         films = tmp;
         return films;
     }
-    public FilmItem[] getItems () {
-        return films;
-    }
 
-    public FilmItem[] findLastLimit() {
-        int resultLength;
-        if (limit > films.length) {
-            resultLength = films.length;
-        } else {
-            resultLength = limit;
-        }
-        FilmItem[] reversed = new FilmItem[resultLength];
-        for (int i = 0; i < reversed.length; i++) {
-            reversed[i] = films[films.length - 1 - i];
-        }
-        return reversed;
-    }
-
-    public FilmItem [] findById(int filmId) {
-        FilmItem[] tmp = new FilmItem[1];
+    public FilmItem[] removeById(int filmId) {
+        FilmItem[] tmp = new FilmItem[films.length - 1];
         int copyToIndex = 0;
-        for (FilmItem  film : films) {
-            if (film.equals(filmId)) {
+        for (FilmItem film : films) {
+            if (film.getFilmId() != filmId) {
                 tmp[copyToIndex] = film;
                 copyToIndex++;
             }
